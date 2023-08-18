@@ -5,4 +5,5 @@
  # 🖥️ Tecnologias & Ferramentas:
 
 * Linguagem de Programação: JavaScript
+* Linguagem de Marcação e Estilização: HTML5, CSS
 * IDE de Desenvolvimento: Visual Studio Code
