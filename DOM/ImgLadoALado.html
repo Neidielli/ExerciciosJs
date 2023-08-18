@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Swapper</title>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: chocolate;
+    }
+
+    .container {
+        display: flex;
+        gap: 20px;
+    }
+
+    img {
+        width: 350px;
+        height: 350px;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 10px 10px rgba(50, 50, 50, 0.77)
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img id="image1" src="imgs/image1.jpg" alt="Image 1">
+    <img id="image2" src="imgs/image2.jpg" alt="Image 2">
+  </div>
+  
+  <script>
+    const image1 = document.getElementById("image1");
+    const image2 = document.getElementById("image2");
+
+    image1.addEventListener("click", swapImages);
+    image2.addEventListener("click", swapImages);
+
+    function swapImages() {
+        const tempSrc = image1.src;
+        image1.src = image2.src;
+        image2.src = tempSrc;
+    }
+
+  </script>
+</body>
+</html>

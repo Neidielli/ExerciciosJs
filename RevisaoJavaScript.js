@@ -61,21 +61,28 @@ function calcularTabuada(numTabuada){
 // 5. Escreva uma função que retorne um número fornecido pelo usuário, porém
 // invertido. Por exemplo, o usuário fornece o número 875 e a função retorna o número
 // 578. O argumento da função e o retorno deve ser um valor inteiro.
-function invertido(numInvertido) {
+function inverterNumero(numeroParametro) {
+  let numeroInvertido = 0;
 
+  while (numeroParametro > 0) {
+    const digito = numeroParametro % 10; // ultimo dígito
+    numeroInvertido = numeroInvertido * 10 + digito;
+    numeroParametro = Math.floor(numeroParametro / 10);
+  }
+
+  return numeroInvertido;
 }
-
 // 6. Escreva uma função que permita contar o número de vogais contidas em uma string
 // fornecida por parâmetro. Por exemplo, o usuário informa a string “Brocolis”, e a função
 // retorna o número 3 (há 3 vogais nessa palavra).
 function contaVogais(stringVogais) {
   // contem a,e,i,o,u
 
-    const vogais = "aeiouAEIOU"; // Todas as vogais, tanto maiúsculas quanto minúsculas
+    const vogais = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']; // Todas as vogais, maiuscula e minuscula
     let contador = 0;
   
-    for (let i = 0; i < stringVogais.length; i++) {
-        if (vogais.includes(stringVogais[i])) {
+    for (let char of stringVogais.toLowerCase()) {
+        if (vogais.includes(char)) {
             contador++;
         }
     }
@@ -87,28 +94,71 @@ function contaVogais(stringVogais) {
 // 7. Escreva uma função que receba uma sequência de parênteses e colchetes e retorne se
 // a sequência está bem formada ou não. O retorno deve ser um valor lógico. Exemplo:
 // “(([]))” retorna true, “(([)])” retorna falso.
-function sequencia(seqSimbolos) {
-  // [ toda vez que abre ], (toda vez que abre)
+function verificarSequenciaBemFormada(sequencia) {
+  const stack = [];
+  const aberturas = "([{";
+  const fechamentos = ")]}";
+
+  for (let char of sequencia) {
+    if (aberturas.includes(char)) {
+      stack.push(char);
+    } else if (fechamentos.includes(char)) {
+      const correspondenteAbertura = aberturas[fechamentos.indexOf(char)];
+      if (stack.length === 0 || stack.pop() !== correspondenteAbertura) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0;
 }
+
 
 // 8. Escreva uma função que receba um número e retorne uma lista de objetos (id, nome e
 // idade) aleatórios gerados dinamicamente. O código deve ser sequencial; use uma lista
 // de nomes pré-definida; e gere idades entre 18 e 90 anos.
-function dicionario(nObjetos) {
-  //dicionario id, nome, e idade - id incremental, idade 18/90, gere pedro, joao e maria
+function gerarListaPessoas(numero) {
+  const nomes = ["Maria", "João", "Carla", "Mario"];
+  const listaPessoas = [];
 
+  for (let i = 0; i < numero; i++) {
+    const nomeAleatorio = nomes[Math.floor(Math.random() * nomes.length)];
+    const idadeAleatoria = Math.floor(Math.random() * (90 - 18 + 1)) + 18;
+    const pessoa = {
+      id: i + 1,
+      nome: nomeAleatorio,
+      idade: idadeAleatoria,
+    };
+    listaPessoas.push(pessoa);
+  }
+
+  return listaPessoas;
 }
+
 
 // 9. Escreva uma função que receba a lista de objetos gerados anteriormente e calcule a
 // média de idades das pessoas presentes na lista.
-function mediaIdade() { // recebe a listade obj
+function calcularMediaIdades(listaPessoas) {
+  if (listaPessoas.length === 0) {
+    return 0;
+  }
 
+  const totalIdades = listaPessoas.reduce((acc, pessoa) => acc + pessoa.idade, 0);
+  const mediaIdades = totalIdades / listaPessoas.length;
+  return mediaIdades;
 }
+
 // 10. Escreva uma função que receba a lista de objetos gerados anteriormente e ordene os
 // dados por um dos atributos informados por parâmetros.
-function ordenacao() { // não entendi
-
+function ordenarPorAtributo(listaPessoas, atributo) {
+  if (atributo === "id" || atributo === "nome" || atributo === "idade") {
+    return listaPessoas.slice().sort((a, b) => a[atributo] - b[atributo]);
+  } else {
+    console.log("Atributo inválido. Escolha 'id', 'nome' ou 'idade'.");
+    return listaPessoas;
+  }
 }
+
 
 // =====================  Debugando/Printando =============================
 console.log('================== 1 ====================');
@@ -135,9 +185,50 @@ const resultadotab = calcularTabuada(numTabuada);
 console.log(`Tabuada de ${numTabuada}: ${resultadotab.join(', ')}`);
 
 console.log('================== 5 ====================');
+const numeroOriginal = 75;
+const numeroInvertido = inverterNumero(numeroOriginal);
+console.log(`Número original: ${numeroOriginal}`);
+console.log(`Número invertido: ${numeroInvertido}`);
+
 console.log('================== 6 ====================');
+const palavra = "Alta";
+const numeroVogais = contaVogais(palavra);
+console.log(`A palavra "${palavra}" tem ${numeroVogais} vogais.`);
+
 console.log('================== 7 ====================');
+const sequencia1 = "(([]))";
+const sequencia2 = "(([)])";
+console.log(verificarSequenciaBemFormada(sequencia1)); // true
+console.log(verificarSequenciaBemFormada(sequencia2)); // false
+
 console.log('================== 8 ====================');
+const quantidadePessoas = 5;
+const pessoasAleatorias = gerarListaPessoas(quantidadePessoas);
+console.log(pessoasAleatorias);
+
 console.log('================== 9 ====================');
+const pessoaAleatorias = [
+  { id: 1, nome: 'Mario', idade: 51 },
+  { id: 2, nome: 'João', idade: 72 },
+  { id: 3, nome: 'Mario', idade: 86 },
+  { id: 4, nome: 'Maria', idade: 44 },
+  { id: 5, nome: 'Carla', idade: 28 }
+];
+
+const mediaIdades = calcularMediaIdades(pessoasAleatorias);
+console.log(`A média de idades das pessoas é: ${mediaIdades.toFixed(2)}`);
+
 console.log('================= 10 ====================');
+const pessoaAleatoria = [
+  { id: 1, nome: 'Maria', idade: 26 },
+  { id: 2, nome: 'Mario', idade: 28 },
+  { id: 3, nome: 'Maria', idade: 88 },
+  { id: 4, nome: 'Mario', idade: 67 },
+  { id: 5, nome: 'Maria', idade: 25 }
+];
+
+const atributoParaOrdenar = "idade"; 
+const pessoasOrdenadas = ordenarPorAtributo(pessoasAleatorias, atributoParaOrdenar);
+console.log(pessoasOrdenadas);
+
 

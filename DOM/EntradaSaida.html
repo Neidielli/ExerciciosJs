@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numerical Operations</title>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: chocolate;
+    }
+
+    .container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    #results {
+        margin-top: 20px;
+        text-align: left;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Operations</h1>
+    <label for="numberInput">Digite um número:</label>
+    <input type="number" id="numberInput">
+    <button id="calculateButton">Calcular</button>
+    <div id="results">
+      <h2>Resultados:</h2>
+      <p id="tabuada"></p>
+      <p id="fatorial"></p>
+      <p id="inversao"></p>
+    </div>
+  </div>
+  
+  <script>
+    const numberInput = document.getElementById("numberInput");
+    const calculateButton = document.getElementById("calculateButton");
+    const tabuadaResult = document.getElementById("tabuada");
+    const fatorialResult = document.getElementById("fatorial");
+    const inversaoResult = document.getElementById("inversao");
+
+    calculateButton.addEventListener("click", () => {
+    const number = parseFloat(numberInput.value);
+
+    if (!isNaN(number)) { // valida input
+        calculateTabuada(number);
+        calculateFatorial(number);
+        calculateInversao(number);
+    } else {
+        tabuadaResult.textContent = "Número inválido";
+        fatorialResult.textContent = "";
+        inversaoResult.textContent = "";
+    }
+    });
+
+    function calculateTabuada(number) { // tabuada
+    tabuadaResult.textContent = "Tabuada:";
+    for (let i = 1; i <= 10; i++) {
+        const result = number * i;
+        tabuadaResult.textContent += `\n${number} x ${i} = ${result}`;
+    }
+    }
+
+    function calculateFatorial(number) { // fatorial
+    let fatorial = 1;
+    for (let i = 1; i <= number; i++) {
+        fatorial *= i;
+    }
+    fatorialResult.textContent = `Fatorial: ${fatorial}`;
+    }
+
+    function calculateInversao(number) { // inversao
+    let numeroInvertido = 0;
+    let numeroOriginal = number;
+
+    while (numeroOriginal > 0) {
+        const digito = numeroOriginal % 10;
+        numeroInvertido = numeroInvertido * 10 + digito;
+        numeroOriginal = Math.floor(numeroOriginal / 10);
+    }
+
+    inversaoResult.textContent = `Inversão: ${numeroInvertido}`;
+    }
+
+  </script>
+</body>
+</html>

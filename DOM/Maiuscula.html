@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Input Transformation</title>
+  <style type="text/css">
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: chocolate;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 26px;
+        border-radius: 5px;
+        color: chocolate;
+    }
+
+    p {
+        padding-top: 20px;
+        margin-top: 10px;
+        font-size: 26px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+  </style>
+
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="textInput" placeholder="Digite um texto">
+    <p id="output"></p>
+  </div>
+
+  <script>
+    const textInput = document.getElementById("textInput");
+    const output = document.getElementById("output");
+
+    textInput.addEventListener("input", () => {
+        const inputValue = textInput.value;
+        const transformedValue = inputValue.replace(/[0-9]/g, "").toUpperCase();
+        output.textContent = transformedValue;
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Color Changer</title>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        transition: background-color 0.3s ease;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    input {
+        margin-top: 10px;
+    }
+    label {
+        font-size: 26px;
+        font-weight: bold;
+        color: black;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <label for="colorPicker">Escolha uma cor de fundo: </label>
+    <input type="color" id="colorPicker">
+  </div>
+  
+  <script>
+    const colorPicker = document.getElementById("colorPicker");
+
+    
+    colorPicker.addEventListener("change", () => {
+        const selectedColor = colorPicker.value;
+        document.body.style.backgroundColor = selectedColor;
+    });
+
+    
+  </script>
+</body>
+</html>

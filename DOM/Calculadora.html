@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: chocolate;
+    }
+
+    .calculator {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        text-align: center;
+        max-width: 700px;
+        height: 400px;
+    }
+
+    #display {
+        width: 100%;
+        padding: 10px;
+        font-size: 36px;
+        text-align: right;
+        color: black;
+        border: none;
+        outline: none;
+        margin-bottom: 20px;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    button {
+        padding: 15px;
+        font-size: 26px;
+        background-color: #d1d1d1;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #b8b8b8;
+    }
+
+  </style>
+
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+      <button class="number-button">1</button>
+      <button class="number-button">2</button>
+      <button class="number-button">3</button>
+      <button class="operation-button">+</button>
+      <button class="number-button">4</button>
+      <button class="number-button">5</button>
+      <button class="number-button">6</button>
+      <button class="operation-button">-</button>
+      <button class="number-button">7</button>
+      <button class="number-button">8</button>
+      <button class="number-button">9</button>
+      <button class="operation-button">*</button>
+      <button class="operation-button">C</button>
+      <button class="number-button">0</button>
+      <button class="calculate-button">=</button>
+      <button class="operation-button">/</button>
+    </div>
+  </div>
+  <script>
+
+    const display = document.getElementById("display");
+    const numberButtons = document.querySelectorAll(".number-button");
+    const operationButtons = document.querySelectorAll(".operation-button");
+    const calculateButton = document.querySelector(".calculate-button");
+
+    let firstValue = "";
+    let operator = "";
+    let secondValue = "";
+    let result = "";
+
+    numberButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (!operator) {
+            firstValue += button.textContent;
+            display.value = firstValue;
+            } else {
+            secondValue += button.textContent;
+            display.value = secondValue;
+            }
+        });
+    });
+
+    operationButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button.textContent === "C") {
+            firstValue = "";
+            secondValue = "";
+            operator = "";
+            result = "";
+            display.value = "";
+            } else {
+            if (firstValue && operator && secondValue) {
+                calculate();
+                firstValue = result;
+                secondValue = "";
+            } else if (firstValue) {
+                operator = button.textContent;
+            }
+            }
+        });
+    });
+
+    calculateButton.addEventListener("click", () => {
+        if (firstValue && operator && secondValue) {
+            calculate();
+            display.value = result;
+            firstValue = result;
+            operator = "";
+            secondValue = "";
+        }
+    });
+
+    function calculate() {
+        switch (operator) {
+            case "+":
+            result = String(parseFloat(firstValue) + parseFloat(secondValue));
+            break;
+            case "-":
+            result = String(parseFloat(firstValue) - parseFloat(secondValue));
+            break;
+            case "*":
+            result = String(parseFloat(firstValue) * parseFloat(secondValue));
+            break;
+            case "/":
+            if (secondValue !== "0") {
+                result = String(parseFloat(firstValue) / parseFloat(secondValue));
+            } else {
+                result = "Error";
+            }
+            break;
+        }
+    }
+
+  </script>
+</body>
+</html>
