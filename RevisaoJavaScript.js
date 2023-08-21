@@ -4,13 +4,22 @@
 // parâmetros.
 
 // 1. Escreva uma função que calcule e retorne o fatorial de um número.
-function calcularFatorial(numero) {
-    if (numero === 0 || numero === 1) {
+function calcularFatorial(numero) { // função recursiva
+    if (numero < 1 || numero === 1) {
       return 1;
     } else {
       return numero * calcularFatorial(numero - 1);
     }
   }
+
+// 1 não recursiva
+// let fatorialnr = function(n) {
+//   let total = 1
+//   for (let i = 2; i <= n; i++) {
+//     total = total * 1;
+//   }
+//   return total;
+// }
   
 // 2. Escreva uma função que retorne uma String contendo uma sequência de
 // N mensagens do texto informado pelo usuário. O valor de N e a mensagem são
@@ -165,6 +174,10 @@ console.log('================== 1 ====================');
 const numero = 10;
 const fatorial = calcularFatorial(numero);
 console.log(`O fatorial de ${numero} é ${fatorial}`);
+
+// console.log('================== 1 nr ====================');
+// const n = 10;
+// console.log(`O fatorial de ${n} é ${total}`);
 
 console.log('================== 2 ====================');
 const texto = "Neidielli";
